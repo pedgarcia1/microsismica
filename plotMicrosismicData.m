@@ -37,7 +37,7 @@ switch pozo
 %         log = ~(log0 | log1 | log2 | log3);
 %         data = data(log,:);
 
-        data = data(data.Fault == 0,:);
+        
 end
 [data,~,meanStage1] = moveXYZ(data,locationGrid); % traslada sistema de coordenadas al centro del stage 1
 
@@ -47,6 +47,9 @@ switchPlot = 'Mw'; % 'U' 'D/S' 'both' 'Mw'
 plotFilterPLanes = false; 
 plotPlanes = false;
 %% INITIALIZATION
+% SOLO PLOTEA RESERVOIR EVENTS
+data = data(data.Fault == 0,:);
+
 Colors = colormap(jet(length(stages)));
 i = 1; legendText    = cell(1,3*length(stages));
 magFactor = 200; planeRange = 500; plotHandles = [];
@@ -81,10 +84,14 @@ for stage_i = stages
             auxHandle = quiver3(f1,X,Y,Z,UX,UY,UZ,'Color',Colors(i,:));
             DipRakePlane(DIP,STRIKE,X,Y,Z,i,Colors,f1);
         case 'Mw_old'
+            % no usar, no es igual a como plotea el informe
             auxHandle = scatter3(f1,X,Y,Z,[],abs(Mw),'filled');
             colorbar(f1,"eastoutside");
             title(f1,"Mw plot");
         case 'Mw'
+            auxHandle = scatter3(f1,X,Y,Z,abs(Mw),Colors(i,:));
+            title(f1,"Mw plot");
+            fprintf("Events are sized by magnitude and colored by stage. \n");
     end
     plotHandles = [plotHandles,auxHandle];
     hold on
