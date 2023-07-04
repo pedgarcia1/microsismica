@@ -1,0 +1,30 @@
+1
+original
+plot de quiver con UX UY y UZ y DIP/RAKE 
+agrego switchPlot para Dip strike y los U
+
+2 
+agrega procesamiento con kmeans y outliers
+
+IMPORTANTE 
+the cluster number in k-means clustering represents the group to which each data point belongs. The algorithm partitions the data points into k clusters based on their proximity to the cluster centroids. Each data point is assigned to the cluster whose centroid is closest to it, and the cluster number is a label assigned to that data point indicating which group it belongs to.
+
+3 
+1 mas procesamiento manual
+
+4 
+sin procesar pero con casing, datos de ET-2022(h)_Survey_Report_Run07_8.5in @4549.77m TD
+
+5
+agrega a 4 el corte de los elementos que estan por encima y por debajo (lejos) del casing
+
+6
+agrego puntos de clusters perforados para cada stage
+
+7 idem 6 pero con el legend funcionando
+
+8 ??
+
+9 plot del pozo 2021h en vez del 2022h
+
+10 2021h con filter de bonarda en Z
