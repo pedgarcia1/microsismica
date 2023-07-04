@@ -3,6 +3,10 @@
 clear; close all; set(0,'DefaultFigureWindowStyle','docked');
 
 pozo = '2022'; fprintf("Well ET%sh \n",pozo);
+
+bonardaTopZ = 2700; % m depth  
+deltaZ = 400;
+
 switch pozo
     case '2021'
         data = importMicroData("2021h_final-events_Campo-Inchauspe_Argentina2_849m-Zdatum.xlsx", "2021_final_all_times", [2, Inf]);
@@ -20,15 +24,28 @@ switch pozo
         % vector con las stages elegidas
         stages = [1:15]; % plotea todas
         % stages = [1 6 7 8 13 14]; % plotea solo 1 3 y 5
+        
+%         % fault event classification
+%         % 1
+%         log0 = data.Z > bonardaTopZ+51;
+%         % 2
+%         log1 = (data.Z > bonardaTopZ & data.Z < bonardaTopZ + 51) & (data.STRIKE < 68 | data.STRIKE > 105);
+%         log2 = ((data.Z > bonardaTopZ & data.Z < bonardaTopZ + 51) & (data.STRIKE > 68 & data.STRIKE < 105)) & ( (data.X > 2465010 & data.Y < 5850840) | data.X > 2465100 | ( data.X > 2464925 & data.Y > 5851705) );
+%         % 3
+%         log3 = (data.Z > bonardaTopZ - 41 & data.Z < bonardaTopZ) & ( data.X < 2463960 | data.X > 2465090 | ( data.X > 2464930 & data.Y < 5850760) | data.Y > 5851900 );
+% 
+%         log = ~(log0 | log1 | log2 | log3);
+%         data = data(log,:);
+
+        data = data(data.Fault == 0,:);
 end
 [data,~,meanStage1] = moveXYZ(data,locationGrid); % traslada sistema de coordenadas al centro del stage 1
 
 %% ELEGIR STAGES PARA PLOTEAR
 
-switchPlot = 'U'; % 'U' 'D/S' 'both' 'Mw'
+switchPlot = 'Mw'; % 'U' 'D/S' 'both' 'Mw'
 plotFilterPLanes = false; 
 plotPlanes = false;
-bonardaTopZ = 2700; % m depth | deltaZ = 550;
 %% INITIALIZATION
 Colors = colormap(jet(length(stages)));
 i = 1; legendText    = cell(1,3*length(stages));
@@ -44,7 +61,7 @@ TVD = casingData.TVDm(160:end-10);
 TVD = TVD(~isnan(TVD));
 profundidadCasingPromedio = mean(TVD);
 % [data] = filterZdata(profundidadCasingPromedio+deltaZ,profundidadCasingPromedio-deltaZ,data,f1,planeRange,plotFilterPLanes);
-[data] = filterZdata(5000,bonardaTopZ,data,f1,planeRange,plotFilterPLanes);
+% [data] = filterZdata(bonardaTopZ+deltaZ,bonardaTopZ,data,f1,planeRange,plotFilterPLanes);
 
 
 for stage_i = stages
@@ -63,10 +80,11 @@ for stage_i = stages
         case 'both'
             auxHandle = quiver3(f1,X,Y,Z,UX,UY,UZ,'Color',Colors(i,:));
             DipRakePlane(DIP,STRIKE,X,Y,Z,i,Colors,f1);
-        case 'Mw'
+        case 'Mw_old'
             auxHandle = scatter3(f1,X,Y,Z,[],abs(Mw),'filled');
             colorbar(f1,"eastoutside");
             title(f1,"Mw plot");
+        case 'Mw'
     end
     plotHandles = [plotHandles,auxHandle];
     hold on
