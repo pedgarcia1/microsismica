@@ -91,7 +91,6 @@ for stage_i = stages
         case 'Mw'
             auxHandle = scatter3(f1,X,Y,Z,abs(Mw),Colors(i,:));
             title(f1,"Mw plot");
-            fprintf("Events are sized by magnitude and colored by stage. \n");
     end
     plotHandles = [plotHandles,auxHandle];
     hold on
