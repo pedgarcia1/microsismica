@@ -43,7 +43,7 @@ end
 
 %% ELEGIR STAGES PARA PLOTEAR
 
-switchPlot = 'Mw'; % 'U' 'D/S' 'both' 'Mw'
+switchPlot = 'Mw/RAKE'; % 'U' 'D/S' 'both' 'Mw'
 plotFilterPLanes = false; 
 plotPlanes = false;
 %% INITIALIZATION
@@ -70,7 +70,7 @@ profundidadCasingPromedio = mean(TVD);
 for stage_i = stages
     X = data.X(data.STAGE == stage_i); Y = data.Y(data.STAGE == stage_i); Z = data.Z(data.STAGE == stage_i);
     UX = data.UX(data.STAGE == stage_i); UY = data.UY(data.STAGE == stage_i); UZ = data.UZ(data.STAGE == stage_i);
-    DIP = data.DIP(data.STAGE == stage_i); STRIKE = data.STRIKE(data.STAGE == stage_i);
+    DIP = data.DIP(data.STAGE == stage_i); STRIKE = data.STRIKE(data.STAGE == stage_i); RAKE = data.RAKE(data.STAGE == stage_i);
     Mw = data.Mw(data.STAGE == stage_i);
     
     switch switchPlot
@@ -88,9 +88,15 @@ for stage_i = stages
             auxHandle = scatter3(f1,X,Y,Z,[],abs(Mw),'filled');
             colorbar(f1,"eastoutside");
             title(f1,"Mw plot");
-        case 'Mw'
+        case 'Mw/Stage'
             auxHandle = scatter3(f1,X,Y,Z,abs(Mw),Colors(i,:));
-            title(f1,"Mw plot");
+            title(f1,"Events are sized by magnitude and colored by stage");
+        case 'Mw/RAKE'
+            auxHandle = scatter3(f1,X,Y,Z,abs(Mw),abs(RAKE));
+%             ticks = [0, 45, 90, 135, 180]; colors = [1 0 0; 1 0.5 0; 0 0.5 1; 1 0.5 0; 1 0 0];
+%             colormap(colors);
+            colorbar(f1,"eastoutside","Ticks",[0 45 90 135 180]);
+            title(f1,"Events are sized by magnitude and colored by stage");
     end
     plotHandles = [plotHandles,auxHandle];
     hold on
