@@ -66,7 +66,6 @@ profundidadCasingPromedio = mean(TVD);
 % [data] = filterZdata(profundidadCasingPromedio+deltaZ,profundidadCasingPromedio-deltaZ,data,f1,planeRange,plotFilterPLanes);
 % [data] = filterZdata(bonardaTopZ+deltaZ,bonardaTopZ,data,f1,planeRange,plotFilterPLanes);
 
-
 for stage_i = stages
     X = data.X(data.STAGE == stage_i); Y = data.Y(data.STAGE == stage_i); Z = data.Z(data.STAGE == stage_i);
     UX = data.UX(data.STAGE == stage_i); UY = data.UY(data.STAGE == stage_i); UZ = data.UZ(data.STAGE == stage_i);
@@ -169,6 +168,17 @@ end
 
 legend(f1,plotHandles,stageName,'location','bestoutside');
 
+% %% DIST FROM CENTER PLOT
+% stageCenter = [EW(1)+locationGrid(1)-meanStage1(1),NS(1)+locationGrid(2)-meanStage1(2),3000]; %chequear esta profundidad promedio despues o en z que valor usa??
+% dCenter = zeros(size(data.X,1),1);
+% for i = 1:size(data.X,1)
+%     dCenter(i) = norm([data.X(i),data.Y(i),data.Z(i)] - locationGrid - stageCenter);
+% end
+% 
+% figure
+% f2 = gca();
+% scatter(f2,data.TIME,dCenter,'yScale','log')
+% xlabel(f2,'')
 %%
 % legend(f1,legendText)
 xlabel(f1,'x [m]'); ylabel(f1,'y [m]'); zlabel(f1,'depth [m]');
