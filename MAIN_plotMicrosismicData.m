@@ -4,7 +4,7 @@ clear; close all; set(0,'DefaultFigureWindowStyle','docked');
 
 pozo = '2022'; fprintf("Well ET%sh \n",pozo);
 
-bonardaTopZ = 2700; % m depth  
+bonardaTopZ = 2750; % m depth  
 deltaZ = 400;
 
 switch pozo
@@ -26,6 +26,8 @@ switch pozo
         % stages = [1 6 7 8 13 14]; % plotea solo 1 3 y 5
         
 %         % fault event classification
+%         % 0
+%         rakelog = abs(data.RAKE) < 45 & abs(data.RAKE) > 135;
 %         % 1
 %         log0 = data.Z > bonardaTopZ+51;
 %         % 2
@@ -34,7 +36,7 @@ switch pozo
 %         % 3
 %         log3 = (data.Z > bonardaTopZ - 41 & data.Z < bonardaTopZ) & ( data.X < 2463960 | data.X > 2465090 | ( data.X > 2464930 & data.Y < 5850760) | data.Y > 5851900 );
 % 
-%         log = ~(log0 | log1 | log2 | log3);
+%         log = ~(rakelog & (log0 | log1 | log2 | log3));
 %         data = data(log,:);
 
         
