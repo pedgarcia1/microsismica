@@ -3,7 +3,7 @@
 clear; close all; set(0,'DefaultFigureWindowStyle','docked');
 
 pozo = '2022'; fprintf("Well ET%sh \n",pozo);
-
+% prueba tati
 bonardaTopZ = 2750; % m depth  
 deltaZ = 400;
 
