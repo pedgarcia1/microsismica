@@ -4,13 +4,13 @@ clear; close all; set(0,'DefaultFigureWindowStyle','docked');
 casing{1} = importSurveyReport('ET-2022(h)_Survey_Report_Run07_8.5in @4549.77m TD.xlsx');
 casing{2} = importSurveyReport('ET-2024(h)_Geodetic Survey Report__Run05_TD@4639m.xlsx');
 nCasings = size(casing,2);
-locationGrid = [2464335 5852410 0];
+locationGrid = [0 0 0];
 meanStage1 = [0 0 0];
 
 clusters{1} = importClustersNew("ET2022h clusters.csv");
 clusters{2} = importClustersNew("ET2024h clusters.csv");
 
-figure; hold on;
+figure; hold on; view(-10,15);
 f1 = gca();
 xlabel(f1,'x [m]'); ylabel(f1,'y [m]'); zlabel(f1,'depth [m]');
 set(f1,'ZDir','reverse');
