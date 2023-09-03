@@ -13,7 +13,7 @@ clusters{2} = importClustersNew("ET2024h clusters.csv");
 figure; hold on; view(-10,15);
 f1 = gca();
 xlabel(f1,'x [m]'); ylabel(f1,'y [m]'); zlabel(f1,'depth [m]');
-set(f1,'ZDir','reverse');
+set(f1,'ZDir','reverse'); axis square;
 for i = 1:nCasings
     EW = casing{i}.EWm(~isnan(casing{i}.EWm));
     NS = casing{i}.NSm(~isnan(casing{i}.NSm));
@@ -45,3 +45,20 @@ end
 for i = 1:size(casingPoints,1)/2
     resultados.dCasings(i) = norm(casingPoints(i,:)-casingPoints(i+3,:));
 end
+
+vec = casingPoints(3,:) - casingPoints(1,:);
+vec = vec/norm(vec);
+nvec = cross(vec,[0 0 1]); % vector perpendicular al casing
+hold on
+for i = 1:3
+    quiver3(casingPoints(i,1),casingPoints(i,2),casingPoints(i,3),500*nvec(1),500*vec(2),500*vec(3));
+end
+quiver3(casingPoints(1,1),casingPoints(1,2),casingPoints(1,3),400*vec(1),400*vec(2),400*vec(3));
+
+aVec = acosd(dot(vec,nvec)/(norm(vec)*norm(nvec)));
+atan2d(norm(cross(vec,nvec)),dot(vec,nvec))
+
+resultados.dZ = mean(casingPoints(1:3,3)) - mean(casingPoints(4:6,3));
+
+axis tight
+axis square
