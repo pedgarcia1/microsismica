@@ -17,12 +17,12 @@ switch pozo
         stages = [1:31]; % plotea todas
         % stages = [1 6 7 8 13 14]; % plotea solo 1 3 y 5
     case '2022'
-        data = importMicroData("G:\Mi unidad\Proyecto Fracking\Microsismica\2022h_final-events_Campo-Inchauspe_Argentina2_849m-Zdatum.xlsx", "2022_final_all-times", [2, Inf]);
+        data = importMicroData("2022h_final-events_Campo-Inchauspe_Argentina2_849m-Zdatum.xlsx", "2022_final_all-times", [2, Inf]);
         casingData = importSurveyReport('ET-2022(h)_Survey_Report_Run07_8.5in @4549.77m TD.xlsx');
         locationGrid = [2464335 5852410 0];
 
         % vector con las stages elegidas
-        stages = [1:15]; % plotea todas
+        stages = [1:3]; % plotea todas
         % stages = [1 6 7 8 13 14]; % plotea solo 1 3 y 5
         
 %         % fault event classification
